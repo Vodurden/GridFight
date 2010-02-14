@@ -1,0 +1,14 @@
+--: TODO :--
+
+Module:
+- New Module Class, encapsulates a Module folder.
+	-> Add code for Module Class to interface with module folders
+	-> Interface based on simply data requests
+	-> Polymorphism? Unlikely.
+	-> Potentially private constructor, see ModuleManager
+
+ModuleManager:
+- Implement ModuleManager or similar helper class
+	-> Provide utility functions to create Module classes.
+	-> Returns instances of Module Class?
+	-> Possible Factory Pattern
