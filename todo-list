@@ -1,14 +1,50 @@
 --: TODO :--
+Main-Menu:
+	-> Implement a proper main menu
+		- Buttons are mostly done
+	
+Units:
+	-> Implement Units
 
-Module:
-- New Module Class, encapsulates a Module folder.
-	-> Add code for Module Class to interface with module folders
-	-> Interface based on simply data requests
-	-> Polymorphism? Unlikely.
-	-> Potentially private constructor, see ModuleManager
+Buttons:
+	-> Consider refactoring the Text-Rect code, smaller functions?
 
-ModuleManager:
-- Implement ModuleManager or similar helper class
-	-> Provide utility functions to create Module classes.
-	-> Returns instances of Module Class?
-	-> Possible Factory Pattern
+Start the Battle State
+	-> Consider lifting ideas from BlockConflict?
+		- Due to AML incorporation direct copy/paste is unlikely to work
+		- Likely that value will still be present
+	-> GUI class would be useful here too, possible factorization potential
+		- MainMenu probably not useful, however components
+			from the button callbacks may be. Consider factorizing
+			further into a button-callback managing system.
+		- Consider alternative GUI system, seperate from MainMenu
+		- Potential to re-use ButtonClass
+	-> Consider lifting Class definitions from BlockConflict
+	-> Module Integration, How much?
+		- Consider Total
+	-> How dynamic does it need to be?
+		- No Hardcoded unit 'attributes' (Stats, Special Effects, Visuals, etc...)
+
+Consider Other States
+	-> Credits
+		- Some sort of Text-Entry GUI would be needed
+		- Consider simple credits.txt bundled with release?
+	-> Options
+		- Front end for module files? (i.e Module Editor)
+		- GUI system again
+		- See: {Factor MainMenu into Menu Class}
+	-> Unit/Group Editor
+		- Other concerns more important right now
+	
+State Communication
+	-> Not Neccecary right now, may be in future
+	-> If neccecary consider similar structure to SFML Events
+
+<-- IMPORTANT -->
+Do I need to focus on Interface first or getting gameplay mechanics down?
+	-> Considering BlockConflict interface troubles would be a good option
+		to tackle the interface first
+
+Group/Unit's are the only main classes --> Composition is overkill
+	- If game complexity increases beyond this consider
+		composition approaches

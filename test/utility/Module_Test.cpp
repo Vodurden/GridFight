@@ -1,30 +1,39 @@
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE Module_Test
+#include <string>
 #include <boost/test/unit_test.hpp>
-
 #include "../../utility/Module.h"
+#include "../../utility/ModuleManager.h"
+void CheckModuleCorrectSettings(const Utility::Module& test_module);
 
-BOOST_AUTO_TEST_CASE( set_path_and_load )
+BOOST_AUTO_TEST_CASE( check_module_definitions )
 	{
-	Utility::Module::SetModuleDir("module_dir");
-	Utility::Module::LoadModule("test_module");
+	Utility::Module test_module("module_dir/test_module");
+	CheckModuleCorrectSettings(test_module);
 	}
 
-
-BOOST_AUTO_TEST_CASE( get_module_path )
+BOOST_AUTO_TEST_CASE( check_module_manager_module_get )
 	{
-	Utility::Module::SetModuleDir("module_dir");
-	Utility::Module::LoadModule("test_module");
-
-	BOOST_CHECK_EQUAL(Utility::Module::GetModulePath(), "module_dir");
-	BOOST_CHECK_EQUAL(Utility::Module::GetModuleName(), "test_module");
+	Utility::ModuleManager::SetModuleSearchPath("module_dir");
+	Utility::Module& test_module = Utility::ModuleManager::GetModuleByName("test_module");
+	CheckModuleCorrectSettings(test_module);	
 	}
 
-
-BOOST_AUTO_TEST_CASE( get_module_config )
+BOOST_AUTO_TEST_CASE( check_default_module_load )
 	{
-	Utility::Module::LoadModuleConfig("module_dir/test_module_file.cfg");
+	Utility::ModuleManager::SetModuleSearchPath("module_dir");
+	std::string default_path = Utility::ModuleManager::GetDefaultModuleName();
+	Utility::Module& default_module = Utility::ModuleManager::GetModuleByName(default_path);
+	CheckModuleCorrectSettings(default_module);
+	}
 
-	BOOST_CHECK_EQUAL(Utility::Module::GetModulePath(), "module_dir");
-	BOOST_CHECK_EQUAL(Utility::Module::GetModuleName(), "test_module");
+void CheckModuleCorrectSettings(const Utility::Module& test_module)
+	{
+	BOOST_CHECK_EQUAL(test_module.getName(), "My Test Module");
+	BOOST_CHECK_EQUAL(test_module.getVersion(), "1.0");
+	BOOST_CHECK_EQUAL(test_module.getGraphicDir(), "graphics");
+	BOOST_CHECK_EQUAL(test_module.getGroupDefinition(), "groups.cfg");
+	BOOST_CHECK_EQUAL(test_module.getUnitDefinition(), "units.cfg");
+	BOOST_CHECK_EQUAL(test_module.getInterfaceDefinition(), "interface.cfg");
+	BOOST_CHECK_EQUAL(test_module.getGameDefinition(), "game.cfg");
 	}

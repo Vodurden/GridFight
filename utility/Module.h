@@ -1,5 +1,7 @@
 #ifndef GRIDFIGHT_UTILITY_MODULE_H
 #define GRIDFIGHT_UTILITY_MODULE_H
+#include <string>
+#include "Config.h"
 namespace Utility
 	{
 	/**
@@ -35,10 +37,42 @@ namespace Utility
 	class Module
 		{
 		public:
+			/**
+			 * Constructor
+			 *
+			 * path should be a folder, containing a module.cfg
+			 */
 			Module(const std::string& path);
+
+			/**
+			 * Deconstructor
+			 */
 			~Module();
+
+			std::string getName() const;
+			std::string getVersion() const;
+			std::string getGraphicDir() const;
+			std::string getGroupDefinition() const;
+			std::string getUnitDefinition() const;
+			std::string getInterfaceDefinition() const;
+			std::string getGameDefinition() const;
+			std::string getButtonDefinition() const;
+
+			std::string getRelativePath() const;
+
+			Config getConfigFile(const std::string& name);
 		private:
+			Config m_config;
+
+			std::string m_path;
+
+			template <typename return_val>
+			return_val get(const std::string& key_name) const
+				{
+				return static_cast<return_val>(
+					m_config.lookup(std::string("module.") + key_name));
+				}
 
 		};
-	};
+	}
 #endif

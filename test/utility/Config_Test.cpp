@@ -26,6 +26,12 @@ BOOST_AUTO_TEST_CASE( resource_load_test )
 	CheckLookups(config);
 	}
 
+BOOST_AUTO_TEST_CASE( looupf_test)
+	{
+	Utility::Config config("test_config_file.cfg");
+	std::string check_string = static_cast<const char*>(config.lookupf("test", "string"));
+	}
+
 void CheckLookups(Utility::Config& config)
 	{
 	std::string check_string = static_cast<const char*>(config.lookup("test.string"));

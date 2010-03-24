@@ -4,6 +4,8 @@
 #include <tr1/memory>
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include "ConfigValidator.h"
 namespace Utility
 	{
 	/**
@@ -58,7 +60,24 @@ namespace Utility
 			 * for more information consult the libconfig documentation at:
 			 * http://www.hyperrealm.com/libconfig/libconfig_manual.html
 			 */
-			libconfig::Setting& lookup(const std::string& lookup_string);
+			libconfig::Setting& lookup(const std::string& lookup_string) const;
+
+			
+			template <typename... Args>
+			libconfig::Setting& lookupf(const Args&... args) const
+				{
+				std::string retString = "";
+
+				std::string strarray[sizeof...(Args)] = { args... };
+				for(unsigned int i = 0; i < sizeof...(Args); ++i)
+					{
+					retString += strarray[i];
+					retString += ".";
+					}
+				retString = retString.erase(retString.rfind("."), retString.rfind("."));
+				return lookup(retString);
+				}
+
 		private:
 			static std::map<std::string, std::tr1::shared_ptr<libconfig::Config> > m_configs;	
 			std::string m_configFilePath;
@@ -76,6 +95,12 @@ namespace Utility
 			 * has already been parsed and stored in m_configs
 			 */
 			bool fileIsLoaded(const std::string& file_path);
+
+			/**
+			 * Checks to see if we have been corrupted, no lookups will be
+			 * performed if so
+			 */
+			bool m_errorState; 
 		};
 	}
 #endif
