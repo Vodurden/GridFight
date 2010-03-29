@@ -3,6 +3,7 @@
 #include "Battle.h"
 #include "../object/GroupFactory.h"
 #include "../object/Group.h"
+#include "../object/Grid.h"
 #include "../../utility/Point.h"
 namespace Core
 	{
@@ -19,7 +20,7 @@ namespace Core
 				
 				void render(sf::RenderTarget& target);
 			private:
-				std::vector<Object::Group*> m_units;
+				Object::Grid m_grid;
 			};
 		}
 	}
