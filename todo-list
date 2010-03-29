@@ -1,13 +1,7 @@
 --: TODO :--
-Main-Menu:
-	-> Implement a proper main menu
-		- Buttons are mostly done
-	
-Units:
-	-> Implement Units
 
-Buttons:
-	-> Consider refactoring the Text-Rect code, smaller functions?
+Skirmish:
+	-> Requires Group, and Interface Modules
 
 Start the Battle State
 	-> Consider lifting ideas from BlockConflict?
@@ -24,6 +18,9 @@ Start the Battle State
 		- Consider Total
 	-> How dynamic does it need to be?
 		- No Hardcoded unit 'attributes' (Stats, Special Effects, Visuals, etc...)
+
+Buttons:
+	-> Consider refactoring the Text-Rect code, smaller functions?
 
 Consider Other States
 	-> Credits
