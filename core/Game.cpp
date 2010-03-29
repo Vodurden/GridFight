@@ -6,7 +6,8 @@ const std::string Game::s_defaultState("MainMenu");
 Game::Game() :
 	m_currentState(s_defaultState),
 	m_window(sf::VideoMode(800, 600, 32), "Test Settings", sf::Style::Close),
-	m_playerControl(m_window)
+	m_playerControlA(m_window),
+	m_playerControlB(m_window)
 	{
 	Utility::ModuleManager::SetModuleSearchPath("module");
 
@@ -24,12 +25,12 @@ Game::Game() :
 	Interface::ButtonFactory::addRelativePosition("BOTTOM_RIGHT", Utility::fPoint(800, 600));
 	// --
 
-	m_playerControl.allowAutoClose(true);
+	m_playerControlA.allowAutoClose(true);
 
-	addState(new State::MainMenu(m_playerControl));
+	addState(new State::MainMenu(m_playerControlA));
 	addState(new State::Quit(m_window));
+	addState(new State::Skirmish(m_playerControlA, m_playerControlB));
 	setState(s_defaultState);
-
 	}
 
 

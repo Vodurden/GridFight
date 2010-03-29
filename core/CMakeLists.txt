@@ -8,6 +8,7 @@ target_link_libraries(GF_CORE
 	GF_STATE
 	GF_INTERFACE
 	GF_STATE
+	GF_OBJECT
 	sfml-graphics
 	sfml-window
 	sfml-system

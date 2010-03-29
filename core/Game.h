@@ -12,6 +12,7 @@
 #include "BaseState.h"
 #include "state/MainMenu.h"
 #include "state/Quit.h"
+#include "state/Skirmish.h"
 #include "../interface/SFMLController.h"
 #include "../interface/ButtonFactory.h"
 #include "../utility/ModuleManager.h"
@@ -39,7 +40,8 @@ namespace Core
 
 			sf::RenderWindow m_window;
 
-			Interface::SFMLController m_playerControl;
+			Interface::SFMLController m_playerControlA;
+			Interface::SFMLController m_playerControlB;
 
 			static const std::string s_defaultState;
 		};
