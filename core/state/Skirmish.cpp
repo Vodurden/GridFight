@@ -20,6 +20,29 @@ Skirmish::~Skirmish()
 
 void Skirmish::update()
 	{
+	/**
+	 * Poll ControllerA and ControllerB
+	 * on the same computer this is going
+	 * to be the same event poll, but in some
+	 * cases it may be an AI or another computer
+	 * generating the events
+	 */
+	
+	// Player 1
+	System::Event event;
+	while(getControllerA().getEvent(event))
+		{
+				
+		}
+	
+	// Player 2
+	while(getControllerB().getEvent(event))
+		{
+
+		}
+
+
+	// Update the units
 	for(std::vector<Object::Group*>::iterator unit = m_units.begin(); unit != m_units.end(); ++unit)
 		{
 		(*unit)->update();
