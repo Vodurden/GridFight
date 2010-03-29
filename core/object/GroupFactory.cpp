@@ -9,7 +9,7 @@ Group* GroupFactory::getGroup(const std::string& name, Utility::fPoint gridTileS
 
 	Group* group = new Group();
 
-	libconfig::Setting& layout = config.lookupf("group", name, "layout");
+	libconfig::Setting& layout = config.lookupf<libconfig::Setting&>("group", name, "layout");
 
 	for(int index = 0; index < layout.getLength(); ++index)
 		{

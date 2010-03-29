@@ -9,16 +9,16 @@ ConfigUnit::ConfigUnit(const std::string& name, const Utility::fPoint gridTileSi
 	Utility::Module& module = Utility::ModuleManager::GetDefaultModule();
 	const Utility::Config& conf = module.getConfigFile(module.getUnitDefinition());
 
-	m_health = static_cast<int>(conf.lookupf("unit", name, "attributes", "health"));
-	m_damage = static_cast<int>(conf.lookupf("unit", name, "attributes", "damage"));
-	m_defense = static_cast<int>(conf.lookupf("unit", name, "attributes", "defense"));
-	m_range = static_cast<int>(conf.lookupf("unit", name, "attributes", "range"));
-	m_attackSpeed = static_cast<int>(conf.lookupf("unit", name, "attributes", "attack_speed"));
-	m_moveSpeed = static_cast<int>(conf.lookupf("unit", name, "attributes", "move_speed"));
+	m_health = conf.lookupf<int>("unit", name, "attributes", "health");
+	m_damage = conf.lookupf<int>("unit", name, "attributes", "damage");
+	m_defense = conf.lookupf<int>("unit", name, "attributes", "defense");
+	m_range = conf.lookupf<int>("unit", name, "attributes", "range");
+	m_attackSpeed = conf.lookupf<int>("unit", name, "attributes", "attack_speed");
+	m_moveSpeed = conf.lookupf<int>("unit", name, "attributes", "move_speed");
 
 	std::string sprite_path = 
 		module.getRelativePath() + "/" +
-		static_cast<const char*>(conf.lookupf("unit", name.c_str(), "sprite"));
+		conf.lookupf<const char*>("unit", name.c_str(), "sprite");
 
 	m_sprite.SetImage(getImage(sprite_path));
 	}
