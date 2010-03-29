@@ -6,6 +6,7 @@
 #include "../../utility/Point.h"
 #include "../../utility/Module.h"
 #include "../../utility/Config.h"
+#include "../../utility/Type.h"
 #include "ImageObject.h"
 namespace Core
 	{
@@ -24,6 +25,8 @@ namespace Core
 				
 				virtual void setSize(Utility::iPoint pos) = 0;
 
+				virtual void setOffset(Utility::fPoint offset) = 0;
+
 				/**
 				 * Returns the position
 				 * in grid coordinates
@@ -36,6 +39,8 @@ namespace Core
 				 * spaces
 				 */
 				virtual Utility::iPoint getSize() = 0;
+
+				virtual Utility::Type getType() = 0;
 
 				virtual void update() = 0;
 

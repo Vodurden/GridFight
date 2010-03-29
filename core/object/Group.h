@@ -24,6 +24,8 @@ namespace Core
 				 */
 				Utility::iPoint getPosition() const;
 
+				void setOffset(Utility::fPoint pos);
+
 				virtual void update();
 
 				virtual void render(sf::RenderTarget& target);

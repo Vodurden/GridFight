@@ -46,6 +46,17 @@ Utility::iPoint Group::getPosition() const
 	}
 
 
+void Group::setOffset(Utility::fPoint offset)
+	{
+	for(UnitIter unitPos = m_units.begin();
+		unitPos != m_units.end();
+		++unitPos)
+		{
+		unitPos->unit->setOffset(offset);
+		}
+	}
+
+
 void Group::update()
 	{
 	for(UnitIter unitPos = m_units.begin();

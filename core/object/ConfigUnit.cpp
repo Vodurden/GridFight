@@ -4,10 +4,14 @@ using namespace Object;
 
 ConfigUnit::ConfigUnit(const std::string& name, const Utility::fPoint gridTileSize) :
 	m_pos(0, 0),
+	m_size(0, 0),
+	m_offset(0, 0),
 	m_gridTileSize(gridTileSize)
 	{
 	Utility::Module& module = Utility::ModuleManager::GetDefaultModule();
 	const Utility::Config& conf = module.getConfigFile(module.getUnitDefinition());
+
+	m_type = conf.lookupf<Utility::Type>("unit", name, "attributes", "type");
 
 	m_health = conf.lookupf<int>("unit", name, "attributes", "health");
 	m_damage = conf.lookupf<int>("unit", name, "attributes", "damage");
@@ -42,6 +46,12 @@ Utility::iPoint ConfigUnit::getSize()
 	}
 
 
+Utility::Type ConfigUnit::getType()
+	{
+	return m_type;
+	}
+
+
 void ConfigUnit::setPosition(Utility::iPoint pos)
 	{
 	m_pos = pos;
@@ -51,6 +61,12 @@ void ConfigUnit::setPosition(Utility::iPoint pos)
 void ConfigUnit::setSize(Utility::iPoint size)
 	{
 	m_size = size;
+	}
+
+
+void ConfigUnit::setOffset(Utility::fPoint offset)
+	{
+	m_offset = offset;
 	}
 
 
@@ -73,8 +89,8 @@ void ConfigUnit::update()
 	{
 	// Make sure we are aligned to the grid
 	m_sprite.SetPosition(
-		m_pos.getX() * m_gridTileSize.getX(),
-		m_pos.getY() * m_gridTileSize.getY()
+		(m_pos.getX() * m_gridTileSize.getX()) + m_offset.getX(),
+		(m_pos.getY() * m_gridTileSize.getY()) + m_offset.getY()
 		);
 	}
 

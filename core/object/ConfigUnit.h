@@ -6,6 +6,7 @@
 #include "../../utility/Module.h"
 #include "../../utility/ModuleManager.h"
 #include "../../utility/Config.h"
+#include "../../utility/Type.h"
 namespace Core
 	{
 	namespace Object
@@ -21,9 +22,13 @@ namespace Core
 
 				Utility::iPoint getSize();
 
+				Utility::Type getType();
+
 				void setPosition(Utility::iPoint pos);
 
 				void setSize(Utility::iPoint size);
+
+				void setOffset(Utility::fPoint offset);
 
 				bool isColliding(BaseUnit& other);
 
@@ -33,8 +38,10 @@ namespace Core
 			private:
 				sf::Sprite m_sprite;	
 
+				Utility::Type m_type;
 				Utility::iPoint m_pos;
 				Utility::iPoint m_size;
+				Utility::fPoint m_offset;
 
 				Utility::fPoint m_gridTileSize;
 
