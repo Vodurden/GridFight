@@ -11,6 +11,9 @@ Grid:
 			outside objects to affect the
 			state of the board
 
+Buttons:
+	-> Refactor to use the new Utility::Color interface
+
 Skirmish:
 	-> Requires Group, and Interface Modules
 
