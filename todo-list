@@ -1,5 +1,16 @@
 --: TODO :--
 
+Grid:
+	-> Requires most rendering options
+	-> Requires general unit handling things
+		- Movement
+		- Collision
+	-> Battles and Special effects
+		- Done by outside analysis
+		- Need to provide functions for
+			outside objects to affect the
+			state of the board
+
 Skirmish:
 	-> Requires Group, and Interface Modules
 
