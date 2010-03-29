@@ -4,6 +4,7 @@ set(OBJECT_SRCS
 	ImageObject.cpp
 	Group.cpp
 	GroupFactory.cpp
+	Grid.cpp
 	)
 
 add_library(GF_OBJECT ${OBJECT_SRCS})
