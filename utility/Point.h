@@ -31,7 +31,14 @@ namespace Utility
 			T m_y;
 		};
 	
+	
 	typedef Point<int> iPoint;
 	typedef Point<float> fPoint;
+
+	template <typename T>
+	Point<T> operator+(Point<T>& lhs, Point<T>& rhs)
+		{
+		return Point<T>(lhs.getX() + rhs.getX(), lhs.getY() + rhs.getY());
+		}
 	}
 #endif
