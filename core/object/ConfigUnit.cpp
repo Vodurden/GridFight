@@ -2,7 +2,9 @@
 using namespace Core;
 using namespace Object;
 
-ConfigUnit::ConfigUnit(const std::string& name)
+ConfigUnit::ConfigUnit(const std::string& name, const Utility::fPoint gridTileSize) :
+	m_pos(0, 0),
+	m_gridTileSize(gridTileSize)
 	{
 	Utility::Module& module = Utility::ModuleManager::GetDefaultModule();
 	const Utility::Config& conf = module.getConfigFile(module.getUnitDefinition());
@@ -14,13 +16,17 @@ ConfigUnit::ConfigUnit(const std::string& name)
 	m_attackSpeed = static_cast<int>(conf.lookupf("unit", name, "attributes", "attack_speed"));
 	m_moveSpeed = static_cast<int>(conf.lookupf("unit", name, "attributes", "move_speed"));
 
-	m_sprite.SetImage(getImage(static_cast<const char*>(conf.lookupf("unit", name.c_str(), "sprite"))));
+	std::string sprite_path = 
+		module.getRelativePath() + "/" +
+		static_cast<const char*>(conf.lookupf("unit", name.c_str(), "sprite"));
+
+	m_sprite.SetImage(getImage(sprite_path));
 	}
 
 
 ConfigUnit::~ConfigUnit()
 	{
-
+	
 	}
 
 
@@ -33,6 +39,18 @@ Utility::iPoint ConfigUnit::getPosition()
 Utility::iPoint ConfigUnit::getSize()
 	{
 	return m_size;
+	}
+
+
+void ConfigUnit::setPosition(Utility::iPoint pos)
+	{
+	m_pos = pos;
+	}
+
+
+void ConfigUnit::setSize(Utility::iPoint size)
+	{
+	m_size = size;
 	}
 
 
@@ -53,18 +71,12 @@ bool ConfigUnit::isColliding(BaseUnit& other)
 
 void ConfigUnit::update()
 	{
-
-	}
-
-
-void ConfigUnit::alignToGrid(Utility::fPoint gridTileSize)
-	{
+	// Make sure we are aligned to the grid
 	m_sprite.SetPosition(
-		m_pos.getX() * gridTileSize.getX(),
-		m_pos.getY() * gridTileSize.getY()
+		m_pos.getX() * m_gridTileSize.getX(),
+		m_pos.getY() * m_gridTileSize.getY()
 		);
 	}
-
 
 void ConfigUnit::render(sf::RenderTarget& target)
 	{

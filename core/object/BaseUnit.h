@@ -6,11 +6,12 @@
 #include "../../utility/Point.h"
 #include "../../utility/Module.h"
 #include "../../utility/Config.h"
+#include "ImageObject.h"
 namespace Core
 	{
 	namespace Object
 		{
-		class BaseUnit
+		class BaseUnit : public ImageObject
 			{
 			public:
 				BaseUnit();
@@ -18,6 +19,10 @@ namespace Core
 				virtual ~BaseUnit() = 0;
 
 				virtual bool isColliding(BaseUnit& other) = 0;
+
+				virtual void setPosition(Utility::iPoint pos) = 0;
+				
+				virtual void setSize(Utility::iPoint pos) = 0;
 
 				/**
 				 * Returns the position
@@ -32,18 +37,9 @@ namespace Core
 				 */
 				virtual Utility::iPoint getSize() = 0;
 
-				virtual void alignToGrid(Utility::fPoint gridTileSize) = 0;
-
 				virtual void update() = 0;
 
 				virtual void render(sf::RenderTarget& target) = 0;
-			protected:
-				static sf::Image& getImage(const std::string& path);
-			private:
-				/**
-				 * Image managing functions
-				 */
-				static std::map<std::string, sf::Image> s_images;
 			};
 		}
 	}

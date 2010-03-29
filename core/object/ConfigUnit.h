@@ -13,7 +13,7 @@ namespace Core
 		class ConfigUnit : public BaseUnit
 			{
 			public:
-				ConfigUnit(const std::string& name);
+				ConfigUnit(const std::string& name, const Utility::fPoint gridTileSize);
 
 				~ConfigUnit();
 
@@ -21,9 +21,11 @@ namespace Core
 
 				Utility::iPoint getSize();
 
-				bool isColliding(BaseUnit& other);
+				void setPosition(Utility::iPoint pos);
 
-				void alignToGrid(Utility::fPoint gridTileSize);
+				void setSize(Utility::iPoint size);
+
+				bool isColliding(BaseUnit& other);
 
 				void update();
 
@@ -33,6 +35,8 @@ namespace Core
 
 				Utility::iPoint m_pos;
 				Utility::iPoint m_size;
+
+				Utility::fPoint m_gridTileSize;
 
 				int m_health;
 				int m_damage;
