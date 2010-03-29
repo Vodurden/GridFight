@@ -23,8 +23,8 @@ namespace Core
 
 				virtual void render(sf::RenderTarget& target) = 0;
 			protected:
-				Interface::BaseController& getBaseControllerA();
-				Interface::BaseController& getBaseControllerB();
+				Interface::BaseController& getControllerA();
+				Interface::BaseController& getControllerB();
 			private:
 				Interface::BaseController& m_controllerA;
 				Interface::BaseController& m_controllerB;

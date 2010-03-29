@@ -10,4 +10,17 @@ Battle::Battle(const std::string& name, Interface::BaseController& controlA, Int
 
 	}
 
+
 Battle::~Battle() {}
+
+
+Interface::BaseController& Battle::getControllerA()
+	{
+	return m_controllerA;
+	}
+
+
+Interface::BaseController& Battle::getControllerB()
+	{
+	return m_controllerB;
+	}
