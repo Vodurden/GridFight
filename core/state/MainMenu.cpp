@@ -44,7 +44,7 @@ void MainMenu::onClicked_campaign()
 
 void MainMenu::onClicked_skirmish()
 	{
-	std::cout << "Starting a Skirmish (UNIMPLEMENTED)" << std::endl;
+	setCurrentState("Skirmish");
 	}
 
 void MainMenu::onClicked_options()
