@@ -6,7 +6,7 @@ Skirmish::Skirmish(Interface::BaseController& controlA, Interface::BaseControlle
 	Battle("Skirmish", controlA, controlB),
 	m_grid("skirmish")
 	{
-
+	m_grid.addGroup(Object::GroupFactory::getGroup("ninja", m_grid.getTileSize()));
 	}
 
 
