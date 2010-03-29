@@ -57,6 +57,7 @@ namespace Utility
 			std::string getInterfaceDefinition() const;
 			std::string getGameDefinition() const;
 			std::string getButtonDefinition() const;
+			std::string getGridDefinition() const;
 
 			std::string getRelativePath() const;
 

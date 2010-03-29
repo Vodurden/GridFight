@@ -53,6 +53,11 @@ std::string Module::getButtonDefinition() const
 	return get<const char*>("button_definitions");
 	}
 
+std::string Module::getGridDefinition() const
+	{
+	return get<const char*>("grid_definitions");
+	}
+
 Config Module::getConfigFile(const std::string& name)
 	{
 	return m_path + "/" + name;
