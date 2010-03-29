@@ -62,9 +62,8 @@ namespace Utility
 			 */
 			libconfig::Setting& lookup(const std::string& lookup_string) const;
 
-			
-			template <typename... Args>
-			libconfig::Setting& lookupf(const Args&... args) const
+			template <typename retT, typename... Args>
+			retT lookupf(const Args&... args) const
 				{
 				std::string retString = "";
 
@@ -75,9 +74,9 @@ namespace Utility
 					retString += ".";
 					}
 				retString = retString.erase(retString.rfind("."), retString.rfind("."));
-				return lookup(retString);
+				return static_cast<retT>(lookup(retString));
 				}
-
+			
 		private:
 			static std::map<std::string, std::tr1::shared_ptr<libconfig::Config> > m_configs;	
 			std::string m_configFilePath;
