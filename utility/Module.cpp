@@ -58,6 +58,11 @@ std::string Module::getGridDefinition() const
 	return get<const char*>("grid_definitions");
 	}
 
+std::string Module::getTypeDefinition() const
+	{
+	return get<const char*>("type_definitions");
+	}
+
 Config Module::getConfigFile(const std::string& name)
 	{
 	return m_path + "/" + name;

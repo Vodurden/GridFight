@@ -33,7 +33,7 @@ void Config::setConfigFile(const std::string& config_file)
 libconfig::Setting& Config::lookup(const std::string& lookup_string) const
 	{
 #ifndef NDEBUG
-	std::cerr << "Looking up data: " << lookup_string << std::endl;
+	std::cout << "Looking up data: " << lookup_string << std::endl;
 #endif
 	return m_configs[m_configFilePath]->lookup(lookup_string);
 	}
@@ -44,7 +44,7 @@ void Config::loadConfigFile(const std::string& file_path)
 	if(!fileIsLoaded(file_path))
 		{
 #ifndef NDEBUG
-		std::cerr << "Loading config file: " << file_path << std::endl;
+		std::cout << "Loading config file: " << file_path << std::endl;
 #endif
 		std::ifstream file_stream(file_path.c_str());
 		if(!file_stream.is_open())
