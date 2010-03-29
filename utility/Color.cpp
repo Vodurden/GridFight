@@ -55,3 +55,9 @@ void Color::set(int r, int g, int b, int a)
 	m_b = b;
 	m_a = a;
 	}
+
+
+sf::Color getSFMLColor(Color& color)
+	{
+	return sf::Color(color.getR(), color.getG(), color.getB(), color.getA());
+	}

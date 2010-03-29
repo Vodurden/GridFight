@@ -1,6 +1,7 @@
 #ifndef GRIDFIGHT_UTILITY_COLOR_H
 #define GRIDFIGHT_UTILITY_COLOR_H
 #include <libconfig.h++>
+#include <SFML/Graphics.hpp>
 namespace Utility
 	{
 	class Color
@@ -25,5 +26,7 @@ namespace Utility
 		private:
 			int m_r, m_g, m_b, m_a;
 		};
+	
+	sf::Color getSFMLColor(Color& color);
 	}
 #endif
