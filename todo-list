@@ -1,7 +1,6 @@
 --: TODO :--
 
 Grid:
-	-> Requires most rendering options
 	-> Requires general unit handling things
 		- Movement
 		- Collision
