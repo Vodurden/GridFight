@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <map>
+#include <utility>
 #include "../../utility/Point.h"
 #include "BaseUnit.h"
 namespace Core
@@ -29,6 +30,17 @@ namespace Core
 				virtual void update();
 
 				virtual void render(sf::RenderTarget& target);
+
+				std::vector<std::pair<Utility::fPoint, Utility::fPoint> > getUnitBorderPoints(
+					BaseUnit& unit, 
+					const Utility::fPoint gridTileSize
+					);
+
+				
+				typedef std::vector<BaseUnit*>::iterator iterator;
+				
+				iterator begin();
+				iterator end();
 			private:
 				friend class GroupFactory;
 				
@@ -41,6 +53,8 @@ namespace Core
 				 * (Will be deleted by this object)
 				 */
 				void addUnit(Utility::iPoint relativePos, BaseUnit* unit);
+
+				BaseUnit* getRelativeUnit(BaseUnit& unit, Utility::iPoint pos);
 
 				struct UnitPosition
 					{
@@ -57,6 +71,7 @@ namespace Core
 				typedef std::vector<UnitPosition>::iterator UnitIter;
 
 				std::vector<UnitPosition> m_units;
+				std::vector<BaseUnit*> m_unitReferences;
 
 				Utility::iPoint m_pos;
 			};

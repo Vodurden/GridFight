@@ -38,8 +38,12 @@ namespace Core
 				Utility::fPoint getTileSize();
 			private:
 				void renderGridTiles(sf::RenderTarget& target);	
+				void renderUnitTiles(sf::RenderTarget& target);
+				void renderGroupBorders(sf::RenderTarget& target);
 				void renderCheckerPattern(sf::RenderTarget& target);
 				void renderUnitSprites(sf::RenderTarget& target);
+
+				const float m_groupBorderSize;
 
 				std::vector<Group*> m_groups;
 

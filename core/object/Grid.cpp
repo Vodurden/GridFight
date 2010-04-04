@@ -2,13 +2,13 @@
 using namespace Core;
 using namespace Object;
 
-Grid::Grid(const std::string& name)
+Grid::Grid(const std::string& name) :
+	m_groupBorderSize(2)
 	{
 	Utility::Module module = Utility::ModuleManager::GetDefaultModule();
 	const Utility::Config config = module.getConfigFile(module.getGridDefinition());
 
 	m_gridBase = getImage(module.getRelativePath() + "/" + config.lookupf<const char*>("grid", name, "tile", "path"));
-
 
 	m_pos = Utility::fPoint(
 		config.lookupf<float>("grid", name, "position", "x"),
@@ -60,7 +60,9 @@ void Grid::update()
 void Grid::render(sf::RenderTarget& target)
 	{
 	renderGridTiles(target);
+	renderUnitTiles(target);
 	renderCheckerPattern(target);
+	renderGroupBorders(target);
 	renderUnitSprites(target);
 	}
 
@@ -86,6 +88,71 @@ void Grid::renderGridTiles(sf::RenderTarget& target)
 	}
 
 
+void Grid::renderUnitTiles(sf::RenderTarget& target)
+	{
+	m_gridBase.SetX(0.0f);
+	m_gridBase.SetY(0.0f);
+	for(std::vector<Group*>::iterator group = m_groups.begin();
+		group != m_groups.end();
+		++group)
+		{
+		for(Group::iterator unit = (*group)->begin();
+			unit != (*group)->end();
+			++unit)
+			{
+			sf::Shape unitBase = sf::Shape::Rectangle(
+				m_gridBase.GetPosition().x,
+				m_gridBase.GetPosition().y,
+				m_gridBase.GetPosition().x + m_gridBase.GetSize().x,
+				m_gridBase.GetPosition().y + m_gridBase.GetSize().y,
+				getSFMLColor((*unit)->getType().getColor())
+				);
+
+			Utility::iPoint pos = (*unit)->getPosition();
+			unitBase.SetX( (pos.getX() * m_gridBase.GetSize().x) + m_pos.getX() );
+			unitBase.SetY( (pos.getY() * m_gridBase.GetSize().y) + m_pos.getY() );
+			target.Draw(unitBase);
+			}
+		}
+	}
+
+
+void Grid::renderGroupBorders(sf::RenderTarget& target)
+	{
+	for(std::vector<Group*>::iterator group = m_groups.begin();
+		group != m_groups.end();
+		++group)
+		{
+		for(Group::iterator unit = (*group)->begin();
+			unit != (*group)->end();
+			++unit)
+			{
+			std::vector<std::pair<Utility::fPoint, Utility::fPoint> > points((*group)->getUnitBorderPoints(
+				**unit,
+				getTileSize()
+				));
+
+			for(std::vector<std::pair<Utility::fPoint, Utility::fPoint> >::iterator point = points.begin();
+				point != points.end();
+				++point)
+				{
+				sf::Shape line = sf::Shape::Line(
+					point->first.getX(), point->first.getY(),
+					point->second.getX(), point->second.getY(),
+					m_groupBorderSize, 
+					getSFMLColor((*unit)->getType().getColor()) * sf::Color(150, 150, 150, 255)
+					);
+
+				Utility::iPoint pos = (*unit)->getPosition();
+				line.SetX( ( pos.getX() * m_gridBase.GetSize().x) + m_pos.getX());
+				line.SetY( ( pos.getY() * m_gridBase.GetSize().y) + m_pos.getY());
+				target.Draw(line);
+				}
+			}
+		}
+	}
+
+
 void Grid::renderUnitSprites(sf::RenderTarget& target)
 	{
 	for(std::vector<Group*>::iterator group = m_groups.begin();
@@ -93,7 +160,7 @@ void Grid::renderUnitSprites(sf::RenderTarget& target)
 		++group)
 		{
 		(*group)->setOffset(m_pos);
-		(*group)->render(target);	
+		(*group)->render(target);
 		}
 	}
 
@@ -110,7 +177,7 @@ void Grid::renderCheckerPattern(sf::RenderTarget& target)
 		getSFMLColor(m_alphaSquareColor)
 		);
 	
-	bool renderAlpha = true;
+	bool renderAlpha = false;
 	for(int y = 0; y < m_size.getY(); ++y)
 		{
 		for(int x = 0; x < m_size.getX(); ++x)

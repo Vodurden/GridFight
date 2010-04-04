@@ -83,4 +83,100 @@ void Group::render(sf::RenderTarget& target)
 void Group::addUnit(Utility::iPoint pos, BaseUnit* unit)
 	{
 	m_units.push_back(UnitPosition(pos, unit));
+	m_unitReferences.push_back(unit);
+	}
+
+
+std::vector<std::pair<Utility::fPoint, Utility::fPoint> > Group::getUnitBorderPoints(
+	BaseUnit& unit, 
+	const Utility::fPoint gridTileSize
+	)
+	{
+	std::vector<std::pair<Utility::fPoint, Utility::fPoint> > points;
+
+	// Top Line
+	BaseUnit* adjacentUnit = getRelativeUnit(unit, Utility::iPoint(0, -1));
+	if( adjacentUnit == NULL )
+		{
+		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
+			Utility::fPoint(0, 0),
+			Utility::fPoint(gridTileSize.getX(), 0)	
+			));
+		}
+	
+	// Right Line
+	adjacentUnit = getRelativeUnit(unit, Utility::iPoint(1, 0));
+	if( adjacentUnit == NULL )
+		{
+		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
+			Utility::fPoint(gridTileSize.getX(), 0),
+			Utility::fPoint(gridTileSize.getX(), gridTileSize.getY())
+			));
+		}
+	
+	adjacentUnit = getRelativeUnit(unit, Utility::iPoint(0, 1));
+	if( adjacentUnit == NULL )
+		{
+		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
+			Utility::fPoint(gridTileSize.getX(), gridTileSize.getY()),
+			Utility::fPoint(0.0f, gridTileSize.getY())
+			));
+		}
+	
+	//Construct the left border if there is no unit to the left
+	adjacentUnit = getRelativeUnit(unit, Utility::iPoint(-1, 0));
+	if( adjacentUnit == NULL )
+		{
+		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
+			Utility::fPoint(0, gridTileSize.getY()),
+			Utility::fPoint(0, 0)
+			));
+		}
+	
+	return points;
+	}
+
+
+//Warning: this will break if "unit" does not exist
+// within this group
+BaseUnit* Group::getRelativeUnit(BaseUnit& unit, Utility::iPoint pos)
+	{
+	//Find this units position 
+	Utility::iPoint unitPos;
+	for(UnitIter unit_kv = m_units.begin(); 
+		unit_kv != m_units.end();
+		++unit_kv)
+		{
+		//Check if this is the exact same unit
+		if(&unit == unit_kv->unit)
+			{
+			unitPos = unit_kv->pos;
+			break;
+			}
+		}
+	
+	//Find the unit adjacent to that point
+	for(UnitIter unit_kv = m_units.begin();
+		unit_kv != m_units.end();
+		++unit_kv)
+		{
+		if((unitPos + pos) == unit_kv->pos)
+			{
+			return (unit_kv->unit);
+			}
+		}
+	
+	return NULL;
+	}
+
+
+Group::iterator Group::begin()
+	{
+	return m_unitReferences.begin();
+	}
+
+
+Group::iterator Group::end()
+	{
+	return m_unitReferences.end();
 	}
