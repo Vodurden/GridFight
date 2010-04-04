@@ -12,10 +12,10 @@ namespace Utility
 			Color(const int r, const int g, const int b, const int a = 255);
 			~Color();
 
-			int getR();
-			int getG();
-			int getB();
-			int getA();
+			int getR() const;
+			int getG() const;
+			int getB() const;
+			int getA() const;
 
 			void setR(int r);
 			void setG(int g);
@@ -27,6 +27,6 @@ namespace Utility
 			int m_r, m_g, m_b, m_a;
 		};
 	
-	sf::Color getSFMLColor(Color& color);
+	sf::Color getSFMLColor(const Color& color);
 	}
 #endif

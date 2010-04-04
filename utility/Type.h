@@ -13,7 +13,7 @@ namespace Utility
 			Type(const std::string& name);
 			~Type();
 
-			Color getColor();
+			Color getColor() const;
 			void setColor(Color color);
 		private:
 			Color m_color;

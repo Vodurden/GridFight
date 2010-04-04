@@ -37,10 +37,10 @@ Color::~Color()
 	}
 
 
-int Color::getR() { return m_r; }
-int Color::getG() { return m_g; }
-int Color::getB() { return m_b; }
-int Color::getA() { return m_a; }
+int Color::getR() const { return m_r; }
+int Color::getG() const { return m_g; }
+int Color::getB() const { return m_b; }
+int Color::getA() const { return m_a; }
 
 void Color::setR(int r) { m_r = r; }
 void Color::setG(int g) { m_g = g; }
@@ -57,7 +57,7 @@ void Color::set(int r, int g, int b, int a)
 	}
 
 
-sf::Color Utility::getSFMLColor(Color& color)
+sf::Color Utility::getSFMLColor(const Color& color) 
 	{
 	return sf::Color(color.getR(), color.getG(), color.getB(), color.getA());
 	}

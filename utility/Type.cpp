@@ -28,7 +28,7 @@ void Type::setColor(Color color)
 	}
 
 
-Color Type::getColor()
+Color Type::getColor() const
 	{
 	return m_color;
 	}

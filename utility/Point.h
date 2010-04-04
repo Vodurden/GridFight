@@ -20,8 +20,8 @@ namespace Utility
 				}
 
 
-			T getX() { return m_x; }
-			T getY() { return m_y; }
+			T getX() const { return m_x; }
+			T getY() const { return m_y; }
 
 			void setX(const T& x) { m_x = x; }
 			void setY(const T& y) { m_y = y; }
@@ -36,9 +36,16 @@ namespace Utility
 	typedef Point<float> fPoint;
 
 	template <typename T>
-	Point<T> operator+(Point<T>& lhs, Point<T>& rhs)
+	Point<T> operator+(const Point<T>& lhs, const Point<T>& rhs)
 		{
 		return Point<T>(lhs.getX() + rhs.getX(), lhs.getY() + rhs.getY());
+		}
+	
+
+	template <typename T>
+	bool operator==(const Point<T>& lhs, const Point<T>& rhs)
+		{
+		return (lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY());
 		}
 	}
 #endif
