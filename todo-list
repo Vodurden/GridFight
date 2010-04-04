@@ -3,6 +3,11 @@
 Grid:
 	-> Requires general unit handling things
 		- Movement
+			- Movement needs to be done via a time step
+				related to unit speed.
+			- Consider having the grid only make movement "requests"
+			- Need to support movement from both sides
+				- Group::advance/retreat ready to support this
 		- Collision
 	-> Battles and Special effects
 		- Done by outside analysis
@@ -12,9 +17,11 @@ Grid:
 
 Buttons:
 	-> Refactor to use the new Utility::Color interface
+	-> Consider refactoring the Text-Rect code, smaller functions?
 
 Skirmish:
-	-> Requires Group, and Interface Modules
+	-> Needs a Upcoming-Unit interface
+	-> Intergration module between the grid and an interface
 
 Start the Battle State
 	-> Consider lifting ideas from BlockConflict?
@@ -32,12 +39,9 @@ Start the Battle State
 	-> How dynamic does it need to be?
 		- No Hardcoded unit 'attributes' (Stats, Special Effects, Visuals, etc...)
 
-Buttons:
-	-> Consider refactoring the Text-Rect code, smaller functions?
-
 Consider Other States
 	-> Credits
-		- Some sort of Text-Entry GUI would be needed
+		- Some sort of Text-Box GUI would be needed
 		- Consider simple credits.txt bundled with release?
 	-> Options
 		- Front end for module files? (i.e Module Editor)
