@@ -2,6 +2,7 @@
 #define GRIDFIGHT_CORE_OBJECT_GRID_H
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <cmath>
 #include "Group.h"
 #include "ImageObject.h"
 #include "../../utility/ModuleManager.h"
@@ -42,12 +43,19 @@ namespace Core
 				void renderGroupBorders(sf::RenderTarget& target);
 				void renderCheckerPattern(sf::RenderTarget& target);
 				void renderUnitSprites(sf::RenderTarget& target);
+				void renderGridBoundry(sf::RenderTarget& target);
+
+				bool isColliding(Group& group);
+				bool isInInvalidPosition(Group& group);
 
 				const float m_groupBorderSize;
+
+				int m_boundryPosition;
 
 				std::vector<Group*> m_groups;
 
 				sf::Sprite m_gridBase;
+				sf::Sprite m_boundryLine;
 				Utility::Color m_gridBaseColor;
 				Utility::Color m_alphaSquareColor;
 

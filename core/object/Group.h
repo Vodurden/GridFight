@@ -31,6 +31,12 @@ namespace Core
 
 				virtual void render(sf::RenderTarget& target);
 
+				virtual void advance();
+
+				virtual void retreat();
+
+				virtual bool isBeyondBoundry(int boundryPosition);
+
 				std::vector<std::pair<Utility::fPoint, Utility::fPoint> > getUnitBorderPoints(
 					BaseUnit& unit, 
 					const Utility::fPoint gridTileSize

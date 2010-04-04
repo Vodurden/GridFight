@@ -54,6 +54,7 @@ void Group::setOffset(Utility::fPoint offset)
 		{
 		unitPos->unit->setOffset(offset);
 		}
+	update();
 	}
 
 
@@ -80,10 +81,25 @@ void Group::render(sf::RenderTarget& target)
 	}
 
 
+void Group::advance()
+	{
+	m_pos.setX(m_pos.getX() + 1);
+	update();
+	}
+
+
+void Group::retreat()
+	{
+	m_pos.setX(m_pos.getX() - 1);
+	update();
+	}
+
+
 void Group::addUnit(Utility::iPoint pos, BaseUnit* unit)
 	{
 	m_units.push_back(UnitPosition(pos, unit));
 	m_unitReferences.push_back(unit);
+	update();
 	}
 
 
@@ -134,6 +150,21 @@ std::vector<std::pair<Utility::fPoint, Utility::fPoint> > Group::getUnitBorderPo
 		}
 	
 	return points;
+	}
+
+
+bool Group::isBeyondBoundry(int boundryPosition)
+	{
+	for(UnitIter unit_kv = m_units.begin();
+		unit_kv != m_units.end();
+		++unit_kv)
+		{
+		if( (m_pos + unit_kv->pos).getX() >= boundryPosition )
+			{
+			return true;
+			}
+		}
+	return false;
 	}
 
 
