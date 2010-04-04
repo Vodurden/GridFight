@@ -15,9 +15,10 @@ Group* GroupFactory::getGroup(const std::string& name, Utility::fPoint gridTileS
 		{
 		libconfig::Setting& layoutSetting = layout[index];
 		group->addUnit(
-			Utility::iPoint( static_cast<int>(layoutSetting[1]), static_cast<int>(layoutSetting[2])),
+			Utility::iPoint(static_cast<int>(layoutSetting[1]), static_cast<int>(layoutSetting[2])),
 			new ConfigUnit(static_cast<const char*>(layoutSetting[0]), gridTileSize)
 			);
+		group->update();
 		}
 	
 	return group;
