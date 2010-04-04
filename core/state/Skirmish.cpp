@@ -30,7 +30,13 @@ void Skirmish::update()
 	System::Event event;
 	while(getControllerA().getEvent(event))
 		{
-				
+		if(event.type == System::Event::MouseButtonReleased)
+			{
+			if(event.MouseButton.Button == System::Mouse::Left)
+				{
+				m_grid.addGroup(Object::GroupFactory::getGroup("knight", m_grid.getTileSize()));
+				}
+			}
 		}
 	
 	// Player 2
