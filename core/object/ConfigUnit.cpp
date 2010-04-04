@@ -74,7 +74,11 @@ bool ConfigUnit::isColliding(BaseUnit& other)
 	{
 	Utility::iPoint o_pos = other.getPosition();
 	Utility::iPoint o_size = other.getSize();
-	if( m_pos.getX() >= o_pos.getX() &&
+	if( m_pos == o_pos )
+		{
+		return true;
+		}
+	else if( m_pos.getX() >= o_pos.getX() &&
 		m_pos.getX() <= o_pos.getX() + o_size.getX() &&
 		m_pos.getY() + m_size.getY() >= o_pos.getY() &&
 		m_pos.getY() <= o_pos.getY() + o_size.getY())
