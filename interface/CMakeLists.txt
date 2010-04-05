@@ -5,6 +5,8 @@ set(INTERFACE_SRCS
 	ImageButton.cpp
 	TextRectButton.cpp
 	ButtonFactory.cpp
+	BaseRenderArea.cpp
+	TextArea.cpp
 	)
 
 add_library(GF_INTERFACE ${INTERFACE_SRCS})
