@@ -36,6 +36,10 @@ void Skirmish::update()
 				{
 				m_grid.addGroup(Object::GroupFactory::getGroup("knight", m_grid.getTileSize()));
 				}
+			else if(event.MouseButton.Button == System::Mouse::Right)
+				{
+				m_grid.addGroup(Object::GroupFactory::getGroup("ninja", m_grid.getTileSize()));
+				}
 			}
 		}
 	
@@ -53,4 +57,8 @@ void Skirmish::update()
 void Skirmish::render(sf::RenderTarget& target)
 	{
 	m_grid.render(target);
+
+	Interface::TextArea test(Utility::fPoint(150.0f, 150.0f), Utility::fPoint(170.0f, 150.0f));
+	test << "Hello there\nI am test text";
+	test.render(target);
 	}

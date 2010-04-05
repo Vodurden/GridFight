@@ -5,6 +5,7 @@
 #include "../object/Group.h"
 #include "../object/Grid.h"
 #include "../../utility/Point.h"
+#include "../../interface/TextArea.h"
 namespace Core
 	{
 	namespace State
