@@ -39,7 +39,8 @@ namespace Core
 
 				std::vector<std::pair<Utility::fPoint, Utility::fPoint> > getUnitBorderPoints(
 					BaseUnit& unit, 
-					const Utility::fPoint gridTileSize
+					const Utility::fPoint gridTileSize,
+					float thickness
 					);
 
 				

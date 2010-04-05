@@ -174,7 +174,8 @@ void Grid::renderGroupBorders(sf::RenderTarget& target)
 			{
 			std::vector<std::pair<Utility::fPoint, Utility::fPoint> > points((*group)->getUnitBorderPoints(
 				**unit,
-				getTileSize()
+				getTileSize(),
+				m_groupBorderSize
 				));
 
 			for(std::vector<std::pair<Utility::fPoint, Utility::fPoint> >::iterator point = points.begin();

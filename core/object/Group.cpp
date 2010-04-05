@@ -105,18 +105,21 @@ void Group::addUnit(Utility::iPoint pos, BaseUnit* unit)
 
 std::vector<std::pair<Utility::fPoint, Utility::fPoint> > Group::getUnitBorderPoints(
 	BaseUnit& unit, 
-	const Utility::fPoint gridTileSize
+	const Utility::fPoint gridTileSize,
+	float thickness
 	)
 	{
 	std::vector<std::pair<Utility::fPoint, Utility::fPoint> > points;
+
+	float iThickness = thickness / 2;
 
 	// Top Line
 	BaseUnit* adjacentUnit = getRelativeUnit(unit, Utility::iPoint(0, -1));
 	if( adjacentUnit == NULL )
 		{
 		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
-			Utility::fPoint(0, 0),
-			Utility::fPoint(gridTileSize.getX(), 0)	
+			Utility::fPoint(0, iThickness),
+			Utility::fPoint(gridTileSize.getX(), iThickness)	
 			));
 		}
 	
@@ -125,17 +128,18 @@ std::vector<std::pair<Utility::fPoint, Utility::fPoint> > Group::getUnitBorderPo
 	if( adjacentUnit == NULL )
 		{
 		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
-			Utility::fPoint(gridTileSize.getX(), 0),
-			Utility::fPoint(gridTileSize.getX(), gridTileSize.getY())
+			Utility::fPoint(gridTileSize.getX() - iThickness, 0),
+			Utility::fPoint(gridTileSize.getX() - iThickness, gridTileSize.getY())
 			));
 		}
 	
+	// Bottom Line
 	adjacentUnit = getRelativeUnit(unit, Utility::iPoint(0, 1));
 	if( adjacentUnit == NULL )
 		{
 		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
-			Utility::fPoint(gridTileSize.getX(), gridTileSize.getY()),
-			Utility::fPoint(0.0f, gridTileSize.getY())
+			Utility::fPoint(gridTileSize.getX(), gridTileSize.getY() - iThickness),
+			Utility::fPoint(0.0f, gridTileSize.getY() - iThickness)
 			));
 		}
 	
@@ -144,8 +148,8 @@ std::vector<std::pair<Utility::fPoint, Utility::fPoint> > Group::getUnitBorderPo
 	if( adjacentUnit == NULL )
 		{
 		points.push_back(std::pair<Utility::fPoint, Utility::fPoint>(
-			Utility::fPoint(0, gridTileSize.getY()),
-			Utility::fPoint(0, 0)
+			Utility::fPoint(iThickness, gridTileSize.getY()),
+			Utility::fPoint(iThickness, 0)
 			));
 		}
 	
