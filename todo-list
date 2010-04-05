@@ -15,6 +15,20 @@ Grid:
 			outside objects to affect the
 			state of the board
 
+Unit/Group Tooltips:
+	-> Some sort of tooltip display that gives
+		information on the unit selected and the 
+		group that it's in
+	-> TextArea is a base for this, Draws PlainText
+	-> Derive into a TextArea that can take positioning
+	-> Derive into a TextArea that can take multiple colors
+	-> Derive into a TextArea that can take images
+		-) [ALL] Use syntax similar to 
+			area << Interface::Color::Red << "Hi" <<
+			Interface::Color::RGB(255, 255, 255, 255) << 
+			"Other Color Text" << Interface::Position::Center << 
+			"Centered Text";
+
 Buttons:
 	-> Refactor to use the new Utility::Color interface
 	-> Consider refactoring the Text-Rect code, smaller functions?
