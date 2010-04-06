@@ -7,6 +7,10 @@ set(INTERFACE_SRCS
 	ButtonFactory.cpp
 	BaseRenderArea.cpp
 	TextArea.cpp
+	FormattedTextArea.cpp
+	Style.cpp
+	Color.cpp
+	Position.cpp
 	)
 
 add_library(GF_INTERFACE ${INTERFACE_SRCS})
