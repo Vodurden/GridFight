@@ -58,7 +58,14 @@ void Skirmish::render(sf::RenderTarget& target)
 	{
 	m_grid.render(target);
 
-	Interface::TextArea test(Utility::fPoint(150.0f, 150.0f), Utility::fPoint(170.0f, 150.0f));
-	test << "Hello there\nI am test text";
+	Interface::FormattedTextArea test(Utility::fPoint(150.0f, 150.0f), Utility::fPoint(400.0f, 350.0f));
+	test << Interface::Style::Bold << Interface::Color::Blue << Interface::Position::Center << "--TITLE--\n";
+	test << Interface::Style::Regular << Interface::Color::Green << Interface::Position::Left << "[" <<
+		Interface::Color::Blue << "[";
+	test << Interface::Style::Bold << Interface::Color::Blue << Interface::Position::Right << "]\n";
+	test << Interface::Position::Left << Interface::Color::Red << Interface::Style::Italic << Interface::Position::Center <<"I am italic centered red and also rather long\n";
+	test << Interface::Position::Left << Interface::Color::Red << "Half Red" << Interface::Color::Blue << "Half Blue\n";
+	test << Interface::Position::Left << "[" << Interface::Position::Center << Interface::Color::Cyan<< "----" << Interface::Position::Right << Interface::Color::Green << "]\n";
+	test << Interface::Style::Regular << Interface::Position::Center << "I am some normal text\n";
 	test.render(target);
 	}
