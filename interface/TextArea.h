@@ -5,9 +5,14 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
+#include <cstring>
 #include <boost/tokenizer.hpp>
 #include "BaseRenderArea.h"
+#include "Color.h"
 #include "../utility/Point.h"
+#include "../utility/Utility.h"
+#include "../utility/SFMLUtility.h"
+
 namespace Interface
 	{
 	/**
@@ -28,12 +33,20 @@ namespace Interface
 
 			template <typename T>
 			friend TextArea& operator<<(TextArea& lhs, const T& rhs);
+
+			void setColor(Interface::Color color);
+
+			void setSize(float size);
 		protected:
 			const std::string& getText() const;
 
 			void setText(const std::string& text);
 		private:
 			std::string m_text;
+
+			Interface::Color m_color;
+
+			float m_size;
 		};
 	
 
