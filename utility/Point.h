@@ -47,5 +47,11 @@ namespace Utility
 		{
 		return (lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY());
 		}
+	
+	template <typename T>
+	bool operator<(const Point<T>& lhs, const Point<T>& rhs)
+		{
+		return ((lhs.getX() < rhs.getX()) && (lhs.getY() < rhs.getY()));
+		}
 	}
 #endif

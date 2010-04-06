@@ -1,7 +1,8 @@
 set(UTILITY_SRCS
 	Config.cpp Module.cpp
 	ModuleManager.cpp ConfigValidator.cpp
-	Color.cpp Type.cpp
+	Type.cpp
+	Utility.cpp SFMLUtility.cpp
 	)
 
 add_library(GF_UTILITY ${UTILITY_SRCS})

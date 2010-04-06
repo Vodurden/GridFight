@@ -3,7 +3,7 @@
 #include "ModuleManager.h"
 #include "Module.h"
 #include "Config.h"
-#include "Color.h"
+#include "../interface/Color.h"
 namespace Utility
 	{
 	class Type
@@ -13,10 +13,10 @@ namespace Utility
 			Type(const std::string& name);
 			~Type();
 
-			Color getColor() const;
-			void setColor(Color color);
+			Interface::Color getColor() const;
+			void setColor(Interface::Color color);
 		private:
-			Color m_color;
+			Interface::Color m_color;
 		};
 	}
 #endif

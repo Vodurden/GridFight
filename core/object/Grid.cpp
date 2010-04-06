@@ -25,8 +25,8 @@ Grid::Grid(const std::string& name) :
 		config.lookupf<int>("grid", name, "size.h")
 		);
 	
-	m_gridBaseColor = config.lookupf<Utility::Color>("grid", name, "tile", "color");
-	m_alphaSquareColor = config.lookupf<Utility::Color>("grid", name, "tile", "alpha");
+	m_gridBaseColor = config.lookupf<Interface::Color>("grid", name, "tile", "color");
+	m_alphaSquareColor = config.lookupf<Interface::Color>("grid", name, "tile", "alpha");
 	m_boundryPosition = ceil(m_size.getX() / 2);
 	}
 
@@ -120,7 +120,7 @@ bool Grid::isInInvalidPosition(Group& group)
 
 void Grid::renderGridTiles(sf::RenderTarget& target)
 	{
-	m_gridBase.SetColor(getSFMLColor(m_gridBaseColor));
+	m_gridBase.SetColor(Interface::getSFMLColor(m_gridBaseColor));
 	for(int y = 0; y < m_size.getY(); ++y)
 		{
 		for(int x = 0; x < m_size.getX(); ++x)

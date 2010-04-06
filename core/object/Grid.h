@@ -8,8 +8,8 @@
 #include "../../utility/ModuleManager.h"
 #include "../../utility/Module.h"
 #include "../../utility/Config.h"
-#include "../../utility/Color.h"
 #include "../../utility/Point.h"
+#include "../../interface/Color.h"
 namespace Core
 	{
 	namespace Object
@@ -56,8 +56,8 @@ namespace Core
 
 				sf::Sprite m_gridBase;
 				sf::Sprite m_boundryLine;
-				Utility::Color m_gridBaseColor;
-				Utility::Color m_alphaSquareColor;
+				Interface::Color m_gridBaseColor;
+				Interface::Color m_alphaSquareColor;
 
 				Utility::fPoint m_pos;
 				Utility::iPoint m_size;
