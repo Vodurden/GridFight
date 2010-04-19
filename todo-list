@@ -76,3 +76,6 @@ Do I need to focus on Interface first or getting gameplay mechanics down?
 Group/Unit's are the only main classes --> Composition is overkill
 	- If game complexity increases beyond this consider
 		composition approaches
+
+Uploads:
+	-> Uplod Color_Test config file test_config_file.cfg
