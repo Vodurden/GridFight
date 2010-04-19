@@ -64,7 +64,7 @@ void Skirmish::render(sf::RenderTarget& target)
 		Interface::Color::Blue << "[";
 	test << Interface::Style::Bold << Interface::Color::Blue << Interface::Position::Right << "]\n";
 	test << Interface::Position::Left << Interface::Color::Red << Interface::Style::Italic << Interface::Position::Center <<"I am italic centered red and also rather long\n";
-	test << Interface::Position::Left << Interface::Color::Red << "Half Red" << Interface::Color::Blue << "Half Blue\n";
+	test << Interface::Position::Center << Interface::Color::Red << "Half Red" << Interface::Color::Blue << "Half Blue\n";
 	test << Interface::Position::Left << "[" << Interface::Position::Center << Interface::Color::Cyan<< "----" << Interface::Position::Right << Interface::Color::Green << "]\n";
 	test << Interface::Style::Regular << Interface::Position::Center << "I am some normal text\n";
 	test.render(target);
