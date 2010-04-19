@@ -11,6 +11,7 @@ set(INTERFACE_SRCS
 	Style.cpp
 	Color.cpp
 	Position.cpp
+	Wrap.cpp
 	)
 
 add_library(GF_INTERFACE ${INTERFACE_SRCS})
