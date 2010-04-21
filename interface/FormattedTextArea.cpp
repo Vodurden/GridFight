@@ -30,15 +30,7 @@ FormattedTextArea& FormattedTextArea::operator<<(const Style& rhs)
 		m_ptrCurrentTextData = m_textData.back();
 		}
 			
-	// 0 is equivilent to regular
-	if(rhs.getType() == 0)
-		{
-		m_ptrCurrentTextData->style = 0;
-		}
-	else
-		{
-		m_ptrCurrentTextData->style |= rhs.getType();
-		}
+	m_ptrCurrentTextData->style |= rhs.getType();
 	return *this;
 	}
 
@@ -70,112 +62,19 @@ FormattedTextArea& FormattedTextArea::operator<<(const Position& rhs)
 	}
 
 
-/*void FormattedTextArea::render(sf::RenderTarget& target)
+FormattedTextArea& FormattedTextArea::operator<<(const Wrap& rhs)
 	{
-	std::vector<sf::String> visualStrings;
-
-	Utility::fPoint cursorPos = getPosition();
-
-	POSITION_TYPE currentPositionType;
-	for(std::vector<TextData*>::iterator textData = m_textData.begin();
-		textData != m_textData.end();
-		++textData)
+	if(m_ptrCurrentTextData->text != "")
 		{
-		// Split the text into a collection of new-lines
-		std::vector<std::string> lines = Utility::splitString((*textData)->text, "\n");
-
-		currentPositionType = (*textData)->position.getType();
-
-		for(std::vector<std::string>::iterator line = lines.begin();
-			line != lines.end();
-			++line)
-			{
-			std::cout << "for line: " << *line << std::endl;
-
-			// If the length of the next amount of text to write plus our cursor
-			// is beyond the boundry then it needs to be split
-			float lineSize = Utility::getLengthInPixels(*line, sf::Font::GetDefaultFont(), 30.0f) + cursorPos.getX();
-			std::cout << "LineSize: " << lineSize << std::endl;
-			if(lineSize < getSize().getX())
-				{
-				std::cout << "Printing line: " << *line << std::endl;
-				 if(currentPositionType != (*textData)->position.getType())
-				 	{
-					switch((*textData)->position.getType())
-						{
-						case Position_Left:
-							cursorPos.setX(getPosition().getX());
-							break;
-						case Position_Center:
-							cursorPos.setX((getPosition().getX() + (getSize().getX() / 2)) - (lineSize / 2));
-							break;
-						case Position_Right:
-							cursorPos.setX(getPosition().getX() + getSize().getX() - lineSize);
-							break;
-						}
-					currentPositionType = (*textData)->position.getType();
-					}
-				std::cout << "At pos: (" << cursorPos.getX() << "," << cursorPos.getY() << ")\n";
-
-				sf::String vString(*line);
-				vString.SetX(cursorPos.getX());
-				vString.SetY(cursorPos.getY());
-				vString.SetColor(getSFMLColor((*textData)->color));
-				vString.SetStyle((*textData)->style);		
-				visualStrings.push_back(vString);
-
-				cursorPos.setX(cursorPos.getX());
-				}
-			else
-				{
-				std::cout << "Splitting line: " << *line << std::endl;
-				std::string currentLine = *line;
-				std::string leftoverLine = "";
-
-				size_t lastWordPos = Utility::findLastWordPosition(
-					currentLine,
-					getSize().getX(),
-					sf::Font::GetDefaultFont(),
-					30.0f);
-
-				leftoverLine = currentLine.substr(lastWordPos+1);
-				currentLine = currentLine.substr(0, lastWordPos);
-
-				line = lines.erase(line);
-				line -= 1;
-				line = lines.insert(line+1, leftoverLine);
-				line -= 1;
-
-				sf::String vString(*line);
-				vString.SetX(cursorPos.getX());
-				vString.SetY(cursorPos.getY());
-				vString.SetColor(getSFMLColor((*textData)->color));
-				vString.SetStyle((*textData)->style);
-				visualStrings.push_back(vString);
-
-				cursorPos.setX(getPosition().getX());
-
-				std::cout << "VContents: " << std::endl;
-				for(std::vector<std::string>::iterator s = lines.begin();
-					s != lines.end();
-					++s)
-					{
-					std::cout << "\t" << *s << std::endl;
-					}
-				}
-			}
-
+		m_textData.push_back(copyStyleAttributes(*m_ptrCurrentTextData));
+		m_ptrCurrentTextData = m_textData.back();
 		}
 	
-	for(std::vector<sf::String>::iterator vString = visualStrings.begin();
-		vString != visualStrings.end();
-		++vString)
-		{
-		target.Draw(*vString);	
-		}
-	}*/
+	m_ptrCurrentTextData->wrap = rhs;
+	return *this;
+	}
 
-
+#if FALSE
 void FormattedTextArea::render(sf::RenderTarget& target)
 	{
 	typedef std::pair<Utility::fPoint, std::string> StringPoint;
@@ -189,6 +88,7 @@ void FormattedTextArea::render(sf::RenderTarget& target)
 	
 	POSITION_TYPE currentPositionType = Position::Left.getType();
 	Utility::fPoint cursor(getPosition().getX(), getPosition().getY());
+
 	for(std::vector<TextData*>::iterator data = m_textData.begin();
 		data != m_textData.end();
 		++data)
@@ -299,6 +199,38 @@ void FormattedTextArea::render(sf::RenderTarget& target)
 			}
 		}
 	}
+#endif
+
+void FormattedTextArea::render(sf::RenderTarget& target)
+	{
+	Utility::fPoint cursor(getPosition().getX(), getPosition().getX());
+
+	for(std::vector<TextData*>::iterator textData = m_textData.begin();
+		textData != m_textData.end();
+		++textData)
+		{
+		// Set the cursor X position based on the alignment
+		//	assuming the alignment has changed
+		if( textData != m_textData.begin() && *(textData-1)->position != (*textData)->position )
+			{
+			float cursorX;
+			switch((*textData)->position)
+				{
+				case Position::Left:
+					// Redundant, added for completeness sake
+					cursorX = cursor.setX(cursor.getX());
+					break;
+				case Position::Center:
+					cursorX = cursor.setX(cursor.getX() + 
+						((getSize().getX() / 2) -
+						getLengthInPixels( (*textData)->text, sf::Font::GetDefaultFont(), 30.0f )));
+					break;
+				case Position::Right:
+					break;
+				}
+			}
+		}
+	}
 
 
 //+++++++++++++++++++++++++++
@@ -308,7 +240,8 @@ FormattedTextArea::TextData::TextData() :
 	text(""),
 	style(Style::Regular.getType()),
 	color(Color::White),
-	position(Position::Left)
+	position(Position::Left),
+	wrap(Wrap::Enabled)
 	{
 		
 	}
@@ -318,7 +251,8 @@ FormattedTextArea::TextData::TextData(const FormattedTextArea::TextData& rhs) :
 	text(rhs.text),
 	style(rhs.style),
 	color(rhs.color),
-	position(rhs.position)
+	position(rhs.position),
+	wrap(rhs.wrap)
 	{
 
 	}

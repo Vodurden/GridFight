@@ -9,10 +9,14 @@
 #include "Style.h"
 #include "Color.h"
 #include "Position.h"
+#include "Wrap.h"
 #include "../utility/Utility.h"
 #include "../utility/SFMLUtility.h"
 namespace Interface
 	{
+	/**
+	 * IOStream style visual text-area. 
+	 */
 	class FormattedTextArea : public BaseRenderArea
 		{
 		public:
@@ -33,6 +37,8 @@ namespace Interface
 			FormattedTextArea& operator<<(const Color& rhs);
 
 			FormattedTextArea& operator<<(const Position& rhs);
+
+			FormattedTextArea& operator<<(const Wrap& rhs);
 
 			template <typename T>
 			FormattedTextArea& operator<<(const T& rhs)
@@ -55,6 +61,7 @@ namespace Interface
 				unsigned long style;
 				Color color;
 				Position position;
+				Wrap wrap;
 				};
 
 			TextData* copyStyleAttributes(const TextData& old) const;
