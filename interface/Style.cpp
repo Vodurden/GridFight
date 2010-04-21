@@ -6,8 +6,6 @@ const Style Style::Bold(Interface::INTERNAL_Bold);
 const Style Style::Italic(Interface::INTERNAL_Italic);
 const Style Style::Underlined(Interface::INTERNAL_Underlined);
 
-
-
 Style::Style(STYLE_TYPE type) :
 	m_type(type)
 	{
